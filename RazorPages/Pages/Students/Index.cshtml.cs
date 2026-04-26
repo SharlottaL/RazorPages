@@ -18,12 +18,26 @@ namespace RazorPages.Pages.Students
         {
             _context = context;
         }
-
+        public string NameSort { get; set; }
+        public string DateSort { get; set; }
+        public string CurentFilter { get; set; }
+        public string CurentSort { get; set; }
         public IList<Student> Student { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder)
         {
-            Student = await _context.Students.ToListAsync();
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+            IQueryable<Student> students = from student in _context.Students select student;
+            switch (sortOrder)
+            {
+                case "name_desc": students = students.OrderByDescending(s => s.LastName); break;
+                case "date_desc": students = students.OrderByDescending(s => s.EnrollmentDate); break;
+                case "Date": students = students.OrderBy(s => s.EnrollmentDate); break;
+                default: students = students.OrderBy(s => s.LastName); break;
+            }
+            Student = await students.AsNoTracking().ToListAsync();
+            // Student = await _context.Students.ToListAsync();
         }
     }
 }
