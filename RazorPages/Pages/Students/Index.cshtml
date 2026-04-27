@@ -5,54 +5,93 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Students</h1>
+<div class="header">
+	<div style="display:flex;">
+		<h2>Students</h2>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<form asp-page="./Index" method="get">
-    <div class="form-actions">
-        <p>
-            Find by name:
-            <input type="text" name="SearchString" value="@Model.CurentFilter" />
-            <input type="submit" value="Search" class="btn btn-primary" /> |
-            <a asp-page="./Index">Все студенты</a>
-        </p>
-    </div>
-    </form>
+		<div style="margin:0px 20px;">
+			<a asp-page="Create" class="btn btn-primary">Create New</a>
+		</div>
+	</div>
+
+	<form asp-page="./Index" method="get">
+		<div class="form-actions no-color">
+			<p>
+				Find by name:
+				<input type="text" name="SearchString" value="@Model.CurentFilter" />
+				@* <input type="text" name="SearchString" value="@Model.CurrentFilter" /> *@
+				<input type="submit" value="Search" class="btn btn-primary" /> |
+				<a asp-page="./Index">Все студенты</a>
+			</p>
+		</div>
+	</form>
+
+</div>
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.NameSort">@Html.DisplayNameFor(model => model.Student[0].LastName)</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Student[0].FirstName)
-            </th>
-            <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"> @Html.DisplayNameFor(model => model.Student[0].EnrollmentDate)</a>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Student) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				<a asp-page="./Index" asp-route-sortOrder="@Model.NameSort" 
+				asp-route-currentFilter="@Model.CurentFilter">@Html.DisplayNameFor(model => model.Students[0].FullName)</a>
+			</th>
+			@* <th>
+				@Html.DisplayNameFor(model => model.Students[0].FirstName)
+			</th> *@
+		
+			<th>
+				<a asp-page="./Index" asp-route-sortOrder="@Model.DateSort" asp-route-currentFilter="@Model.CurentFilter">@Html.DisplayNameFor(model => model.Students[0].EnrollmentDate)</a>
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Students)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.FullName)
+				</td>
+			@* 	<td>
+					@Html.DisplayFor(modelItem => item.FirstName)
+				</td> *@
+				<td>
+					@Html.DisplayFor(modelItem => item.EnrollmentDate)
+				</td>
+				<td>
+					<a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+					<a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+					<a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
+@{
+	string prevDisabled = Model.Students.HasPreviousPage ? "" : "disabled";
+	string nextDisabled = Model.Students.HasNextPage ? "" : "disabled";
+}
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurentSort"
+   asp-route-pageIndex="@(Model.Students.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurentFilter"
+   asp-route-pageSize="@Model.PageSize"
+   class="btn btn-primary @prevDisabled">
+	Prev
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurentSort"
+   asp-route-pageIndex="@(Model.Students.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurentFilter"
+   asp-route-pageSize="@Model.PageSize"
+   class="btn btn-primary @nextDisabled">
+	Next
+</a>
+<form asp-page="./Index" method="get">
+	<select asp-for="PageSize" onchange="this.form.submit()">
+		<option value="3"> 3</option>
+		<option value="5"> 5</option>
+		<option value="8"> 8</option>
+		<option value="10">10</option>
+	</select>
+</form>
