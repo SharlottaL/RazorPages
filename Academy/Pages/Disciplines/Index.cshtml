@@ -1,0 +1,42 @@
+﻿@page
+@model Academy.Pages.Disciplines.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Discipline[0].discipline_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Discipline[0].number_of_lessons)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Discipline) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.discipline_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.number_of_lessons)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.discipline_id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.discipline_id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.discipline_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

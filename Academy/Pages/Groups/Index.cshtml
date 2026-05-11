@@ -1,0 +1,54 @@
+﻿@page
+@model Academy.Pages.Groups.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Group[0].group_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Group[0].learning_days)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Group[0].start_time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Group[0].direction)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Group) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.group_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.learning_days)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.start_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direction.direction_name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.group_id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.group_id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.group_id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

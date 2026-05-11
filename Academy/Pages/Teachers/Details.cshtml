@@ -1,0 +1,73 @@
+﻿@page
+@model Academy.Pages.Teachers.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Teacher</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.work_since)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.work_since)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.rate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.rate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.last_name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.last_name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.first_name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.first_name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.middle_name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.middle_name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.birth_date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.birth_date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.phone)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Teacher.photo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Teacher.photo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Teacher.teacher_id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

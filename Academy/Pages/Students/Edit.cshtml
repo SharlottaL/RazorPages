@@ -1,0 +1,73 @@
+﻿@page
+@model Academy.Pages.Students.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Student</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Student.stud_id" />
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Student.group" class="control-label"></label>
+                <select asp-for="Student.group" class="form-control" asp-items="ViewBag.group" aria-required="true"></select>
+                <span asp-validation-for="Student.group" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.last_name" class="control-label"></label>
+                <input asp-for="Student.last_name" class="form-control" />
+                <span asp-validation-for="Student.last_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Student.first_name" class="control-label"></label>
+                <input asp-for="Student.first_name" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Student.first_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.middle_name" class="control-label"></label>
+                <input asp-for="Student.middle_name" class="form-control" />
+                <span asp-validation-for="Student.middle_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+<span class="text-danger">*</span>
+                <label asp-for="Student.birth_date" class="control-label"></label>
+                <input asp-for="Student.birth_date" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Student.birth_date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.email" class="control-label"></label>
+                <input asp-for="Student.email" class="form-control" />
+                <span asp-validation-for="Student.email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.phone" class="control-label"></label>
+                <input asp-for="Student.phone" class="form-control" />
+                <span asp-validation-for="Student.phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.photo" class="control-label"></label>
+                <input asp-for="Student.photo" class="form-control" />
+                <span asp-validation-for="Student.photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
