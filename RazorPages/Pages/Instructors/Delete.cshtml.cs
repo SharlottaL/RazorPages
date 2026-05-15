@@ -48,16 +48,26 @@ namespace RazorPages.Pages.Instructors
             {
                 return NotFound();
             }
+            Instructor instructor = await _context.Instructors
+                .Include(i => i.Courses)
+                .SingleAsync(i => i.ID == id);
+            if (instructor == null) return RedirectToPage("./Index");
+            List<Department> departments = await _context.Departments
+                .Where(d => d.InstructorID == id)
+                .ToListAsync();
+            departments.ForEach(d => d.InstructorID = null);
+            _context.Instructors.Remove(instructor);
+            await _context.SaveChangesAsync();
+            /* var instructor = await _context.Instructors.FindAsync(id);
+             if (instructor != null)
+             {
+                 Instructor = instructor;
+                 _context.Instructors.Remove(Instructor);
+                 await _context.SaveChangesAsync();
+             }
 
-            var instructor = await _context.Instructors.FindAsync(id);
-            if (instructor != null)
-            {
-                Instructor = instructor;
-                _context.Instructors.Remove(Instructor);
-                await _context.SaveChangesAsync();
-            }
-
-            return RedirectToPage("./Index");
+             return RedirectToPage("./Index");*/
+            return RedirectToPage("./Index"); 
         }
     }
 }
