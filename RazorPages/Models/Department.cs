@@ -16,6 +16,9 @@ namespace RazorPages.Models
         public DateTime StartDate { get; set; }
         public int? InstructorID { get; set; }
 
+        [Timestamp]
+        public byte[] ConcurrencyToken { get; set; }
+
         //////NP/////
         ///
         public Instructor Administrator { get; set; }
